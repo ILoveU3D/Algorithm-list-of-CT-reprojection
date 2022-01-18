@@ -1,17 +1,17 @@
 clc;clear;
-% 1. ¶¨ÒåÕı½»Ëã×Ó
+% 1. å®šä¹‰æ­£äº¤ç®—å­
 theta = 1:180;
 N = 256;
 A = @(x) radon(x,theta);
 A_T = @(x) imresize(iradon(x,theta,"Linear","none"),[N,N]);
 A_Inv = @(x) imresize(iradon(x,theta),[N,N]);
 
-% 2. Í¼Ïñ
+% 2. å›¾åƒ
 x = phantom(N);
 p = A(x);
 fbp = A_Inv(p);
 
-% 3. ARTµü´ú£¨ÏßĞÔËã×Ó¹éÒ»»¯£©
+% 3. ARTè¿­ä»£ï¼ˆçº¿æ€§ç®—å­å½’ä¸€åŒ–ï¼‰
 art = zeros(size(x));
 A_T_A = A_T(A(ones(size(art))));
 epoch = 20;
@@ -20,6 +20,6 @@ for i = 1:epoch
     if mod(i,2) == 0
         subplot(2,5,i/2);
         imshow(art);
-        title(sprintf("µÚ%d´Î",i));
+        title(sprintf("ç¬¬%dæ¬¡",i));
     end
 end
