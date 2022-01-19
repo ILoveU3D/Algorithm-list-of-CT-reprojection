@@ -9,17 +9,17 @@ A_Inv = @(x) imresize(iradon(x,theta),[N,N]);
 % 2. 图像
 x = phantom(N);
 p = A(x);
-fbp = A_Inv(p);
 
-% 3. ART迭代（线性算子归一化）
-art = zeros(size(x));
-A_T_A = A_T(A(ones(size(art))));
-epoch = 20;
+% 3. E-M
+ML_EM = rand(N);
+A_T_A = A_T(A(ones(size(ML_EM))));
+epoch = 50;
 for i = 1:epoch
-    art = art + A_T(p - A(art)) ./ A_T_A;
+    ML_EM = ML_EM .* A_T(p ./ (A(ML_EM)+0.0001)) ./ A_T_A;
+    ML_EM = ML_EM / max(ML_EM(:));
     if mod(i,2) == 0
-        subplot(2,5,i/2);
-        imshow(art);
+        subplot(5,5,i/2);
+        imshow(ML_EM);
         title(sprintf("第%d次",i));
     end
 end
