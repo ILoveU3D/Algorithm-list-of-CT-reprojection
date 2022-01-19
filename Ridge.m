@@ -11,16 +11,16 @@ x = phantom(N);
 p = A(x);
 
 % 3. 定义为正态分布下的岭回归
-gd = A_Inv(p)'; % 一个先验(FBP)
-lambda = 1; % 梯度系数
+gd = zeros(N); % 一个先验(FBP)
+lambda = 1e-4; % 梯度系数
 alpha = 0.1; % 正则项系数（防止过拟合）
-epoch = 200;
-A_T_A = A_T(A(ones(size(gd))));
+epoch = 50;
 for i = 1:epoch
-    grad = A_T(A(gd) - p) ./ A_T_A;
+    grad = A_T(A(gd) - p);
     gd = gd - grad * lambda - alpha * gd;
-    if mod(i,8) == 0
-        subplot(5,5,i/8);
+    gd = gd / max(gd(:));
+    if mod(i,2) == 0
+        subplot(5,5,i/2);
         imshow(gd);
         title(sprintf("第%d次",i));
     end
