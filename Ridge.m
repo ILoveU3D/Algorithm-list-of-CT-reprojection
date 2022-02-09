@@ -19,8 +19,8 @@ for i = 1:epoch
     grad = A_T(A(gd) - p);
     gd = gd - grad * lambda - alpha * gd;
     gd = gd / max(gd(:));
-    if mod(i,2) == 0
-        subplot(5,5,i/2);
+    if mod(i,10) == 0
+        subplot(1,5,i/10);
         imshow(gd);
         title(sprintf("µÚ%d´Î",i));
     end

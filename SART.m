@@ -17,8 +17,8 @@ A_T_A = A_T(A(ones(size(art))));
 epoch = 50;
 for i = 1:epoch
     art = art + A_T(p - A(art)) ./ A_T_A;
-    if mod(i,2) == 0
-        subplot(5,5,i/2);
+    if mod(i,10) == 0
+        subplot(1,5,i/10);
         imshow(art);
         title(sprintf("µÚ%d´Î",i));
     end

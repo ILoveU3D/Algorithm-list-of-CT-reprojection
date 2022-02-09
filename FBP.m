@@ -22,7 +22,7 @@ proj_ifft = real(ifft(proj_filtered)); % 取实部，正常虚部为0
 
 % 5. 反投影
 fbp = zeros(256);
-for i = 1:180
+for i = theta
 % 这个i是投影角，不是投影线与x轴夹角，他们之间相差 pi/2
     rad = deg2rad(i-1);
     for x = (-256/2+1):256/2
@@ -33,6 +33,7 @@ for i = 1:180
     end
 end
 fbp = fbp/180;
+fbp = fbp/max(fbp(:));
 
 subplot(1, 2, 1), imshow(P), title('Original')
 subplot(1, 2, 2), imshow(fbp), title('FBP')
